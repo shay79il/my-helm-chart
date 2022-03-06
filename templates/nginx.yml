@@ -15,12 +15,16 @@ spec:
       labels:
         app: nginx
     spec:
+      volumes:
+        - name: config-volume
+          configMap:
+            name: {{ .Release.Name }}-nginx-cm
       containers:
       - name: nginx
         image: nginx:1.14.2
-        envFrom:
-        - configMapRef:
-            name: nginx-configmap
+        volumeMounts:
+          - name: config-volume
+            mountPath: /etc/config
         ports:
           - containerPort: 80
             protocol: TCP
@@ -30,7 +34,6 @@ spec:
             path: /index.html
             port: nginx-port
           initialDelaySeconds: 5
-          periodSeconds: 10
         livenessProbe:
           httpGet:
             path: /index.html

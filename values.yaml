@@ -80,3 +80,7 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+myApp:
+  REGION: ""
+  ENV_NAME: ""

@@ -7,12 +7,23 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
-  - http:
+  - host: "nginx.shay.com"
+    http:
       paths:
-      - path: /testpath
-        pathType: Prefix
+      - pathType: Prefix
+        path: /
         backend:
           service:
-            name: nginx-service
+            name: {{ .Release.Name }}-nginx-svc
             port:
-              number: 8081
+              number: 80
+  - host: "app.shay.com"
+    http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: {{ .Release.Name }}-app-svc
+            port:
+              number: 80

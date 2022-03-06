@@ -22,9 +22,9 @@ spec:
         - containerPort: 80
         env:
           - name: REGION
-            value: "ap-south-1"
+            value: {{ .Values.myApp.REGION }}
           - name: ENV_NAME
-            value: "QA"
+            value: {{ .Values.myApp.ENV_NAME }}
         readinessProbe:
           tcpSocket:
             port: 80
